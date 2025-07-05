@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const BASE_URL = 'http://server.dexterrtech.com:8000/api/';
 
-
 const api = axios.create({
   baseURL: BASE_URL,
   timeout: 100000,
@@ -11,7 +10,7 @@ const api = axios.create({
   },
 });
 
-const MOCK_MODE = false;// false if backend is ready
+const MOCK_MODE = false;// false if api is ready
 
 // --- MOCK DATA --- //
 const mockShops = [
