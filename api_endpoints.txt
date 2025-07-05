@@ -1,0 +1,145 @@
+API Endpoints – Invoice Application
+
+1. Onboard New Business
+Endpoint: POST /api/business/onboard
+ Description: Registers a new business with required details.
+Request Body:
+{
+  "name": "string",
+  "location": "string",
+  "category": "string",
+  "contactName": "string",
+  "contactPhone": "string",
+  "contactEmail": "string",
+  "address": "string",
+  "pinCode": "string",
+  "phone1": "string (optional)",
+  "gstNumber": "string",
+  "gstType": "string"
+}
+
+Success Response:
+{
+  "success": true,
+  "message": "Business onboarded successfully",
+  "business": {
+    "id": "string",
+    ...all submitted fields
+  }
+}
+
+Error Response:
+{
+  "success": false,
+  "message": "Validation error",
+  "errors": {
+    "fieldName": "Error message"
+  }
+}
+
+
+2. Get All Shops
+Endpoint: GET /api/shops
+ Description: Fetches a list of all registered shops.
+Response:
+[
+  {
+    "id": "string",
+    "name": "string",
+    "location": "string",
+    "category": "string"
+  },
+  ...
+]
+
+
+3. Get Shop Details
+Endpoint: GET /api/shops/{shopId}
+ Description: Retrieves details of a specific shop by ID.
+Response:
+
+{
+  "id": "string",
+  "name": "string",
+  "location": "string",
+  "category": "string"
+}
+
+
+4. Get All Customers
+Endpoint: GET /api/customers
+ Description: Returns a list of all customers.
+Response:
+[
+  {
+    "phoneNumber": "string",
+    "locationsVisited": ["string", ...],
+    "totalSpent": number,
+    "categories": ["string", ...]
+  },
+  ...
+]
+
+
+5. Get Customer Details
+Endpoint: GET /api/customers/{phoneNumber}
+ Description: Returns the profile of a customer using their phone number.
+Response:
+{
+  "phoneNumber": "string",
+  "locationsVisited": ["string", ...],
+  "totalSpent": number,
+  "categories": ["string", ...]
+}
+
+
+6. Get All Invoices
+Endpoint: GET /api/invoices
+ Description: Retrieves all invoices generated.
+Response:
+
+[
+  {
+    "invoiceId": "string",
+    "shopId": "string",
+    "customerNumber": "string",
+    "amount": number,
+    "date": "YYYY-MM-DD",
+    "category": "string",
+    "location": "string",
+    "whatsappDelivery": boolean
+  },
+  ...
+]
+
+
+7. Get Invoice Details
+Endpoint: GET /api/invoices/{invoiceId}
+ Description: Retrieves invoice details using the invoice ID.
+Response:
+{
+  "invoiceId": "string",
+  "shopId": "string",
+  "customerNumber": "string",
+  "amount": number,
+  "date": "YYYY-MM-DD",
+  "category": "string",
+  "location": "string",
+  "whatsappDelivery": boolean
+}
+
+
+8. Analytics Endpoints (Optional)
+Purpose: Used for dashboard visualizations and business insights.
+GET /api/analytics/shops
+
+
+GET /api/analytics/customers
+
+
+GET /api/analytics/invoices
+
+
+Response:
+ Custom response format based on filters and KPIs used in the dashboard.
+

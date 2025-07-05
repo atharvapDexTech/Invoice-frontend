@@ -1,0 +1,62 @@
+[
+  {
+    "id": "shop123",
+    "name": "SuperMart Andheri",
+    "location": "Andheri, Mumbai",
+    "category": "Grocery"
+  },
+  {
+    "id": "shop124",
+    "name": "Salon Pune",
+    "location": "Pune, Maharashtra",
+    "category": "Salon"
+  },
+  {
+    "id": "shop125",
+    "name": "Saree Palace",
+    "location": "Satara, Maharashtra",
+    "category": "Saree Shop"
+  },
+  {
+    "id": "shop126",
+    "name": "Gold House",
+    "location": "Anand, Gujarat",
+    "category": "Gold Shop"
+  },
+  {
+    "id": "shop127",
+    "name": "Jewels Ahmedabad",
+    "location": "Ahmedabad, Gujarat",
+    "category": "Jewellery Shop"
+  },
+  {
+    "id": "shop128",
+    "name": "ElectroSurat",
+    "location": "Surat, Gujarat",
+    "category": "Electronics Shop"
+  },
+  {
+    "id": "shop129",
+    "name": "Mobile Bengaluru",
+    "location": "Bengaluru, Karnataka",
+    "category": "Mobile Shop"
+  },
+  {
+    "id": "shop130",
+    "name": "Book Mumbai",
+    "location": "Mumbai, Maharashtra",
+    "category": "Book Shop"
+  },
+  {
+    "id": "shop131",
+    "name": "Bakery Pune",
+    "location": "Pune, Maharashtra",
+    "category": "Bakery Shop"
+  },
+  {
+    "id": "shop132",
+    "name": "SuperMart Pune",
+    "location": "Pune, Maharashtra",
+    "category": "Grocery"
+  } 
+] 

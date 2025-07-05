@@ -1,0 +1,22 @@
+[
+  { "invoiceId": "inv101", "shopId": "shop123", "customerNumber": "9876543210", "amount": 750, "date": "2025-06-01", "category": "Grocery", "location": "Andheri, Mumbai", "whatsappDelivery": true },
+  { "invoiceId": "inv102", "shopId": "shop124", "customerNumber": "9876543211", "amount": 1200, "date": "2025-06-02", "category": "Salon", "location": "Pune, Maharashtra", "whatsappDelivery": false },
+  { "invoiceId": "inv103", "shopId": "shop125", "customerNumber": "9876543212", "amount": 2000, "date": "2025-06-03", "category": "Saree Shop", "location": "Satara, Maharashtra", "whatsappDelivery": true },
+  { "invoiceId": "inv104", "shopId": "shop126", "customerNumber": "9876543213", "amount": 5000, "date": "2025-06-04", "category": "Gold Shop", "location": "Anand, Gujarat", "whatsappDelivery": false },
+  { "invoiceId": "inv105", "shopId": "shop127", "customerNumber": "9876543214", "amount": 3500, "date": "2025-06-05", "category": "Jewellery Shop", "location": "Ahmedabad, Gujarat", "whatsappDelivery": true },
+  { "invoiceId": "inv106", "shopId": "shop128", "customerNumber": "9876543215", "amount": 2200, "date": "2025-06-06", "category": "Electronics Shop", "location": "Surat, Gujarat", "whatsappDelivery": false },
+  { "invoiceId": "inv107", "shopId": "shop129", "customerNumber": "9876543216", "amount": 1800, "date": "2025-06-07", "category": "Mobile Shop", "location": "Bengaluru, Karnataka", "whatsappDelivery": true },
+  { "invoiceId": "inv108", "shopId": "shop130", "customerNumber": "9876543217", "amount": 900, "date": "2025-06-08", "category": "Book Shop", "location": "Mumbai, Maharashtra", "whatsappDelivery": false },
+  { "invoiceId": "inv109", "shopId": "shop131", "customerNumber": "9876543218", "amount": 1100, "date": "2025-06-09", "category": "Bakery Shop", "location": "Pune, Maharashtra", "whatsappDelivery": true },
+  { "invoiceId": "inv110", "shopId": "shop132", "customerNumber": "9876543219", "amount": 950, "date": "2025-06-10", "category": "Grocery", "location": "Pune, Maharashtra", "whatsappDelivery": false },
+  { "invoiceId": "inv111", "shopId": "shop123", "customerNumber": "9876543211", "amount": 800, "date": "2025-06-11", "category": "Grocery", "location": "Andheri, Mumbai", "whatsappDelivery": true },
+  { "invoiceId": "inv112", "shopId": "shop124", "customerNumber": "9876543212", "amount": 1300, "date": "2025-06-12", "category": "Salon", "location": "Pune, Maharashtra", "whatsappDelivery": false },
+  { "invoiceId": "inv113", "shopId": "shop125", "customerNumber": "9876543213", "amount": 2100, "date": "2025-06-13", "category": "Saree Shop", "location": "Satara, Maharashtra", "whatsappDelivery": true },
+  { "invoiceId": "inv114", "shopId": "shop126", "customerNumber": "9876543214", "amount": 5100, "date": "2025-06-14", "category": "Gold Shop", "location": "Anand, Gujarat", "whatsappDelivery": false },
+  { "invoiceId": "inv115", "shopId": "shop127", "customerNumber": "9876543215", "amount": 3600, "date": "2025-06-15", "category": "Jewellery Shop", "location": "Ahmedabad, Gujarat", "whatsappDelivery": true },
+  { "invoiceId": "inv116", "shopId": "shop128", "customerNumber": "9876543216", "amount": 2300, "date": "2025-06-16", "category": "Electronics Shop", "location": "Surat, Gujarat", "whatsappDelivery": false },
+  { "invoiceId": "inv117", "shopId": "shop129", "customerNumber": "9876543217", "amount": 1900, "date": "2025-06-17", "category": "Mobile Shop", "location": "Bengaluru, Karnataka", "whatsappDelivery": true },
+  { "invoiceId": "inv118", "shopId": "shop130", "customerNumber": "9876543218", "amount": 950, "date": "2025-06-18", "category": "Book Shop", "location": "Mumbai, Maharashtra", "whatsappDelivery": false },
+  { "invoiceId": "inv119", "shopId": "shop131", "customerNumber": "9876543219", "amount": 1200, "date": "2025-06-19", "category": "Bakery Shop", "location": "Pune, Maharashtra", "whatsappDelivery": true },
+  { "invoiceId": "inv120", "shopId": "shop132", "customerNumber": "9876543210", "amount": 1000, "date": "2025-06-30", "category": "Grocery", "location": "Pune, Maharashtra", "whatsappDelivery": false }
+]   
