@@ -82,9 +82,9 @@ const Analytics = () => {
   const filterInvoices = (filters) => {
     return invoices.filter(inv => {
       if (filters.shopName && !ciMatch(shops.find(s => s.id === inv.shopId)?.name, filters.shopName)) return false;
-      if (filters.location && !ciMatch(inv.location, filters.location)) return false;
-      if (filters.startDate && inv.date < filters.startDate) return false;
-      if (filters.endDate && inv.date > filters.endDate) return false;
+      if (filters.location && !ciIncludes(inv.location, filters.location)) return false;
+      if (filters.category && !ciMatch(inv.category, filters.category)) return false;
+      if (filters.purchaseDate && inv.date !== filters.purchaseDate) return false;
       return true;
     });
   };
@@ -93,7 +93,6 @@ const Analytics = () => {
   const filterCustomers = (filters) => {
     return customers.filter(cust => {
       if (filters.customerNumber && !ciMatch(cust.phoneNumber, filters.customerNumber)) return false;
-      if (filters.customerName && !ciIncludes(cust.phoneNumber, filters.customerName)) return false;
       if (filters.location && !(cust.locationsVisited || []).some(loc => ciMatch(loc, filters.location))) return false;
       return true;
     });
@@ -102,9 +101,9 @@ const Analytics = () => {
   const filterInvoicesByCustomer = (filters) => {
     return invoices.filter(inv => {
       if (filters.customerNumber && !ciMatch(inv.customerNumber, filters.customerNumber)) return false;
-      if (filters.location && !ciMatch(inv.location, filters.location)) return false;
-      if (filters.startDate && inv.date < filters.startDate) return false;
-      if (filters.endDate && inv.date > filters.endDate) return false;
+      if (filters.location && !ciIncludes(inv.location, filters.location)) return false;
+      if (filters.category && !ciMatch(inv.category, filters.category)) return false;
+      if (filters.purchaseDate && inv.date !== filters.purchaseDate) return false;
       return true;
     });
   };
@@ -161,16 +160,20 @@ const Analytics = () => {
         <TabPanel value={tab} index={0}>
           <SectionHeader>Shop Filters</SectionHeader>
           <Paper sx={{ p: 2, mb: 3, bgcolor: '#fafdff' }} elevation={0}>
-            <ShopFilter filters={shopFilters} onChange={setShopFilters} shops={shops} />
-            <Button onClick={handleClearShopFilters} size="small" sx={{ mt: 1, ml: 1 }} variant="outlined">Clear Filters</Button>
+            <ShopFilter filters={shopFilters} onChange={setShopFilters} shops={shops} invoices={invoices} />
           </Paper>
           <SectionHeader>Shop KPIs</SectionHeader>
           <Grid container spacing={2} mb={2}>
-            {shopKpis.map(kpi => (
-              <Grid item xs={12} sm={6} md={3} key={kpi.label}>
-                <InvoiceStatsCard label={kpi.label} stats={{ allTime: kpi.value, last7Days: '-', today: '-' }} icon={kpi.icon} />
-              </Grid>
-            ))}
+            {/* Only show relevant KPIs for filtered data */}
+            <Grid item xs={12} sm={4} md={3}>
+              <InvoiceStatsCard label="Total Purchases" stats={{ allTime: filteredInvoices.length }} icon={ReceiptLongIcon} />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <InvoiceStatsCard label="Total Spent" stats={{ allTime: filteredInvoices.reduce((sum, inv) => sum + (inv.amount || 0), 0) }} icon={AttachMoneyIcon} />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <InvoiceStatsCard label="Categories" stats={{ allTime: Array.from(new Set(filteredInvoices.map(inv => inv.category))).length }} icon={CategoryIcon} />
+            </Grid>
           </Grid>
           <SectionHeader>Invoices</SectionHeader>
           <Stack direction="row" justifyContent="flex-end" mb={1}>
@@ -188,16 +191,20 @@ const Analytics = () => {
         <TabPanel value={tab} index={1}>
           <SectionHeader>Customer Filters</SectionHeader>
           <Paper sx={{ p: 2, mb: 3, bgcolor: '#fafdff' }} elevation={0}>
-            <CustomerFilter filters={customerFilters} onChange={setCustomerFilters} customers={customers} />
-            <Button onClick={handleClearCustomerFilters} size="small" sx={{ mt: 1, ml: 1 }} variant="outlined">Clear Filters</Button>
+            <CustomerFilter filters={customerFilters} onChange={setCustomerFilters} customers={customers} invoices={invoices} />
           </Paper>
           <SectionHeader>Customer KPIs</SectionHeader>
           <Grid container spacing={2} mb={2}>
-            {customerKpis.map(kpi => (
-              <Grid item xs={12} sm={6} md={3} key={kpi.label}>
-                <InvoiceStatsCard label={kpi.label} stats={{ allTime: kpi.value, last7Days: '-', today: '-' }} icon={kpi.icon} />
-              </Grid>
-            ))}
+            {/* Only show relevant KPIs for filtered data */}
+            <Grid item xs={12} sm={4} md={3}>
+              <InvoiceStatsCard label="Total Purchases" stats={{ allTime: filteredCustomerInvoices.length }} icon={ReceiptLongIcon} />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <InvoiceStatsCard label="Total Spent" stats={{ allTime: filteredCustomerInvoices.reduce((sum, inv) => sum + (inv.amount || 0), 0) }} icon={AttachMoneyIcon} />
+            </Grid>
+            <Grid item xs={12} sm={4} md={3}>
+              <InvoiceStatsCard label="Categories" stats={{ allTime: Array.from(new Set(filteredCustomerInvoices.map(inv => inv.category))).length }} icon={CategoryIcon} />
+            </Grid>
           </Grid>
           <SectionHeader>Purchases</SectionHeader>
           <Stack direction="row" justifyContent="flex-end" mb={1}>

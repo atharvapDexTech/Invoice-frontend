@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Autocomplete, TextField, Stack, Paper, Button, InputAdornment } from '@mui/material';
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import CategoryIcon from '@mui/icons-material/Category';
 import SearchIcon from '@mui/icons-material/Search';
 
 const getUniqueLocations = (shops) => {
@@ -10,10 +10,19 @@ const getUniqueLocations = (shops) => {
   return Array.from(new Set(locations));
 };
 
-const ShopFilter = ({ filters, onChange, shops = [] }) => {
+const getUniqueCategories = (shops, invoices) => {
+  // Prefer shop categories, but also include from invoices if needed
+  const shopCats = shops.map(s => s.category).filter(Boolean);
+  const invoiceCats = (invoices || []).map(inv => inv.category).filter(Boolean);
+  return Array.from(new Set([...shopCats, ...invoiceCats]));
+};
+
+const ShopFilter = ({ filters, onChange, shops = [], invoices = [] }) => {
   const handleChange = (field, value) => {
     onChange({ ...filters, [field]: value });
   };
+
+  const categories = useMemo(() => getUniqueCategories(shops, invoices), [shops, invoices]);
 
   return (
     <Paper sx={{ p: 3, border: '2px solid #1976d2', borderRadius: 2, bgcolor: '#fafdff', mb: 2 }} elevation={0}>
@@ -60,38 +69,41 @@ const ShopFilter = ({ filters, onChange, shops = [] }) => {
             />
           )}
         />
-        <TextField
-          label="Start Date"
-          type="date"
-          size="small"
-          InputLabelProps={{ shrink: true }}
-          value={filters.startDate || ''}
-          onChange={e => handleChange('startDate', e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <CalendarTodayIcon color="primary" />
-              </InputAdornment>
-            ),
-          }}
+        <Autocomplete
+          options={categories}
+          value={filters.category || ''}
+          onChange={(_, v) => handleChange('category', v)}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Category"
+              variant="outlined"
+              size="small"
+              InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CategoryIcon color="primary" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
         />
         <TextField
-          label="End Date"
+          label="Purchase Date"
           type="date"
           size="small"
           InputLabelProps={{ shrink: true }}
-          value={filters.endDate || ''}
-          onChange={e => handleChange('endDate', e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <CalendarTodayIcon color="primary" />
-              </InputAdornment>
-            ),
-          }}
+          value={filters.purchaseDate || ''}
+          onChange={e => handleChange('purchaseDate', e.target.value)}
+          sx={{ minWidth: 150 }}
         />
         <Button variant="contained" color="primary" startIcon={<SearchIcon />} sx={{ height: 40, minWidth: 100 }}>
           Search
+        </Button>
+        <Button variant="outlined" color="primary" onClick={() => onChange({})} sx={{ height: 40, minWidth: 100 }}>
+          Clear Filters
         </Button>
       </Stack>
     </Paper>
