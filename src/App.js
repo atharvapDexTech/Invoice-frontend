@@ -19,6 +19,8 @@ import CustomerPage from './pages/Customer';
 import ShopPage from './pages/Shop';
 import OnboardBusiness from './pages/OnboardBusiness';
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+import CampaignIcon from '@mui/icons-material/Campaign';
+import Advertisement from './pages/Advertisement';
 
 const drawerWidth = 220;
 
@@ -28,6 +30,7 @@ const navItems = [
   { text: 'Reports', icon: <AssessmentIcon />, path: '/reports' },
   { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
   { text: 'Onboard Business', icon: <StoreMallDirectoryIcon />, path: '/onboard-business' },
+  { text: 'Advertisement', icon: <CampaignIcon />, path: '/advertisement' },
 ];
 
 function Layout({ children }) {
@@ -242,6 +245,7 @@ function App() {
           <Route path="/reports" element={<Reports />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/onboard-business" element={<OnboardBusiness />} />
+          <Route path="/advertisement" element={<Advertisement />} />
           <Route path="/customers/:customerNumber" element={<CustomerPage />} />
           <Route path="/shops/:shopId" element={<ShopPage />} />
         </Routes>
