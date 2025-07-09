@@ -25,6 +25,28 @@ const mockInvoices = [
   { invoiceId: 'inv101', shopId: 'shop123', customerNumber: '9876543210', amount: 750, date: '2025-06-01', category: 'Grocery', location: 'Andheri, Mumbai', whatsappDelivery: true },
 ];
 
+// --- MOCK LOGIN FUNCTION --- //
+export async function login(username, password) {
+  // Mocked login logic
+  if (username === 'admin' && password === '123') {
+    return Promise.resolve({
+      data: {
+        token: 'mock-admin-jwt',
+        user: { username: 'admin', role: 'admin' }
+      }
+    });
+  }
+  if (username === 'business' && password === '123') {
+    return Promise.resolve({
+      data: {
+        token: 'mock-business-jwt',
+        user: { username: 'business', role: 'business', shopId: 'shop123' }
+      }
+    });
+  }
+  return Promise.reject({ response: { data: { detail: 'Invalid credentials' } } });
+}
+
 // --- API FUNCTIONS --- //
 
 // 1. Create Shop (Onboard New Shop)
@@ -46,7 +68,7 @@ export async function getShops() {
   if (MOCK_MODE) {
     return Promise.resolve({ data: mockShops });
   }
-  return api.get('/shops');
+  return api.get('/shops/');
 }
 
 // 3. Get Shop Details
@@ -55,7 +77,7 @@ export async function getShop(shopId) {
     const shop = mockShops.find(s => s.id === shopId);
     return Promise.resolve({ data: shop });
   }
-  return api.get(`/shops/${shopId}`);
+  return api.get(`/shops/${shopId}/`);
 }
 
 // 4. Get All Customers
@@ -63,7 +85,7 @@ export async function getCustomers() {
   if (MOCK_MODE) {
     return Promise.resolve({ data: mockCustomers });
   }
-  return api.get('/customers');
+  return api.get('/customers/');
 }
 
 // 5. Get Customer Details
@@ -72,7 +94,7 @@ export async function getCustomer(phoneNumber) {
     const customer = mockCustomers.find(c => c.phoneNumber === phoneNumber);
     return Promise.resolve({ data: customer });
   }
-  return api.get(`/customers/${phoneNumber}`);
+  return api.get(`/customers/${phoneNumber}/`);
 }
 
 // 6. Get All Invoices
@@ -80,7 +102,7 @@ export async function getInvoices() {
   if (MOCK_MODE) {
     return Promise.resolve({ data: mockInvoices });
   }
-  return api.get('/invoices');
+  return api.get('/invoices/');
 }
 
 // 7. Get Invoice Details
@@ -89,7 +111,7 @@ export async function getInvoice(invoiceId) {
     const invoice = mockInvoices.find(i => i.invoiceId === invoiceId);
     return Promise.resolve({ data: invoice });
   }
-  return api.get(`/invoices/${invoiceId}`);
+  return api.get(`/invoices/${invoiceId}/`);
 }
 
 // 7. Create Advertisement for a Shop
@@ -105,19 +127,19 @@ export async function getShopAnalytics() {
   if (MOCK_MODE) {
     return Promise.resolve({ data: { kpis: {}, filters: {} } });
   }
-  return api.get('/analytics/shops');
+  return api.get('/analytics/shops/');
 }
 export async function getCustomerAnalytics() {
   if (MOCK_MODE) {
     return Promise.resolve({ data: { kpis: {}, filters: {} } });
   }
-  return api.get('/analytics/customers');
+  return api.get('/analytics/customers/');
 }
 export async function getInvoiceAnalytics() {
   if (MOCK_MODE) {
     return Promise.resolve({ data: { kpis: {}, filters: {} } });
   }
-  return api.get('/analytics/invoices');
+  return api.get('/analytics/invoices/');
 }
 export async function getDashboardAnalytics() {
   if (MOCK_MODE) {
