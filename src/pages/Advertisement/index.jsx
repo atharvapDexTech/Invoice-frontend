@@ -3,7 +3,7 @@ import {
   Box, Typography, Paper, FormControl, InputLabel, Select, MenuItem, Button, TextField, CircularProgress, Alert, Avatar, Stack, Divider, IconButton, Card, CardContent, Grid
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { getShops } from '../../utils/api';
+import { getShops, createAdvertisement } from '../../utils/api';
 import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import CampaignIcon from '@mui/icons-material/Campaign';
@@ -31,6 +31,7 @@ export default function Advertisement() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [adDetails, setAdDetails] = useState(null);
 
   useEffect(() => {
     getShops().then(res => setShops(res.data)).catch(() => setShops([]));
@@ -48,10 +49,11 @@ export default function Advertisement() {
     setImagePreview(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setAdDetails(null);
     if (!selectedShop || !image || !startDateTime || !endDateTime) {
       setError('Please fill all fields and upload an image.');
       return;
@@ -61,15 +63,25 @@ export default function Advertisement() {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const formData = new FormData();
+      formData.append('image', image);
+      formData.append('start_time', new Date(startDateTime).toISOString().slice(0, 19));
+      formData.append('end_time', new Date(endDateTime).toISOString().slice(0, 19));
+      const response = await createAdvertisement(selectedShop, formData);
+      const data = response.data;
       setSuccess('Advertisement submitted successfully!');
+      setAdDetails(data.advertisement);
       setSelectedShop('');
       setImage(null);
       setImagePreview(null);
       setStartDateTime(null);
       setEndDateTime(null);
-    }, 1500);
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message || 'Failed to submit advertisement');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

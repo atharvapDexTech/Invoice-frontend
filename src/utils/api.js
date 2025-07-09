@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://server.dexterrtech.com:8000/api/';
+const BASE_URL = 'https://server.dexterrtech.com/api/';
+//const BASE_URL = 'http://localhost:8000/api/';
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -89,6 +90,14 @@ export async function getInvoice(invoiceId) {
     return Promise.resolve({ data: invoice });
   }
   return api.get(`/invoices/${invoiceId}`);
+}
+
+// 7. Create Advertisement for a Shop
+export async function createAdvertisement(shopId, formData) {
+  // formData should be a FormData object with image, start_time, end_time
+  return api.post(`/shops/${shopId}/advertisement/`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
 }
 
 // 8. Analytics Endpoints (customize as needed)
